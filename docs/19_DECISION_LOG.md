@@ -178,3 +178,19 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-057 — Puzzle authoring standard
 **Locked.** Every major puzzle must be specified through the causal authoring template before graybox/art production, including normal routine, recorded events, intended insight, observation plan, reaction boundaries, reset, tests, and playtest questions.
+
+
+## D-058 — Prototype A graybox
+**Locked.** Prototype A uses one small office/archive threshold, one worker, and one door to prove CLOSE recording, suppression, release, non-rewound actor history, reset, and minimal Review UX.
+
+## D-059 — Prototype B graybox
+**Locked.** Prototype B uses one visually coherent security-transfer room where Desk/Badge, Guard, Scanner, and Staff Door can be observed as one causal chain. TAKE, AUTHORIZE, and UNLOCK are separate recorded moments.
+
+## D-060 — Prototype B timing semantics
+**Locked.** Suppressing TAKE before authorization must prevent an impossible later scan from being recorded; suppressing it after authorization/unlock commits preserves those later events. Event timing therefore changes which consequences already exist, without rewinding history.
+
+## D-061 — Prototype C contradiction
+**Locked.** Prototype C centers on suppressing a committed PLACE-to-locker event while actor memory retains the expectation. The guard notices only at an authored observation point, then runs a deterministic MissingBadge reaction.
+
+## D-062 — Reaction persistence
+**Locked for Prototype C.** Once the MissingBadge reaction legitimately fires for its trigger instance, releasing the original correction does not retroactively erase that already-triggered present-time reaction; the authored reaction completes.
