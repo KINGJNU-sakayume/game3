@@ -1,6 +1,7 @@
 using Undo.Core.Corrections;
 using Undo.Core.Events;
 using Undo.Core.State;
+using Xunit;
 
 namespace Undo.Core.Tests;
 
