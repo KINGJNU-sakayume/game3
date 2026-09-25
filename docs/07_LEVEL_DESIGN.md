@@ -80,3 +80,169 @@ For each level:
 6. Is a new bespoke mechanic being added unnecessarily?
 7. Is the player reasoning, or merely waiting/executing timing?
 8. Can the level be reset to a known deterministic state?
+
+
+## Environmental information design
+
+### Core rule
+
+A puzzle space is an information system before it is a decorative environment.
+
+The player must be able to perceive:
+- who can affect what,
+- which route an actor is taking,
+- which object changed state,
+- what changed after a correction,
+- where a useful consequence occurred.
+
+Environmental composition should support causal reading.
+
+### Sightline rule
+
+For the first introduction of a new relationship, prefer a composition where the player can see both the action and at least one important consequence.
+
+Example:
+- guard scans badge,
+- reader responds,
+- door unlocks,
+
+should initially be readable from one observational position or through an immediately understandable camera turn.
+
+Later levels may deliberately split these across spaces after the sound language and event history are learned.
+
+### Observation anchors
+
+Every major puzzle space should provide 1–3 natural positions from which the player can understand a routine.
+
+Examples:
+- end of archive aisle,
+- glass security booth,
+- mezzanine landing,
+- doorway recess,
+- service-window opening.
+
+These should look architecturally plausible, not like glowing "puzzle viewing platforms."
+
+### Landmarking
+
+Navigation uses real institutional landmarks:
+- zone numbers,
+- floor markings,
+- distinctive doors,
+- desk clusters,
+- equipment families,
+- safety signage,
+- architectural transitions.
+
+Do not rely on floating objective markers or colored game trails.
+
+### Functional color
+
+Realistic facility safety/wayfinding colors may be used for institutional meaning, but puzzle semantics cannot depend only on color.
+
+Correction amber remains exclusive to the correction phenomenon.
+
+### Causal proximity
+
+During teaching levels, keep causes and consequences spatially close enough that the player can form the relationship without memorizing an entire floor.
+
+As mastery increases, causal chains may span:
+- adjacent rooms,
+- two sides of a corridor,
+- floor/mezzanine relationships,
+- nearby service spaces.
+
+Avoid puzzle chains that require remembering invisible state changes across large unrelated areas.
+
+### Off-screen events
+
+A critical off-screen event is valid only when at least one reliable information channel exists:
+- recognizable sound,
+- visible downstream reaction,
+- deterministic routine,
+- inspectable event history.
+
+Never require blind guessing about whether an unseen event happened.
+
+### Occlusion
+
+Architectural realism must not hide the game.
+
+Avoid:
+- dense shelving placed exactly across key NPC interactions,
+- opaque machinery blocking a newly taught event,
+- decorative clutter masking state-change animation,
+- identical doors in complex spaces without usable identifiers.
+
+Occlusion can become an intentional advanced challenge only after the underlying rule is established.
+
+### State readability
+
+Objects with gameplay state should have physically readable changes where reasonable.
+
+Examples:
+- door visibly open/closed,
+- latch/indicator changes for lock state,
+- equipment motor/motion difference,
+- scanner lamp or mechanical state,
+- ventilation or flow clues,
+- cabinet/drawer geometry.
+
+Do not communicate all state through abstract UI.
+
+### NPC route readability
+
+NPCs should move with understandable intent:
+- look toward destination,
+- interact visibly,
+- pause at meaningful checkpoints,
+- use consistent doors/routes under the same conditions.
+
+Avoid over-naturalistic wandering animations that obscure the deterministic routine.
+
+### Reset readability
+
+After RESTORE CURRENT RECORD, the space must clearly return to its stable initial configuration.
+
+Players should not wonder whether one machine or NPC remained in an altered state.
+
+### Spatial escalation
+
+Early:
+- one room or short corridor,
+- single visible causal chain.
+
+Middle:
+- connected rooms,
+- multiple actors,
+- audio-supported off-screen events.
+
+Late:
+- multi-space causal networks,
+- intentional historical/state overlap,
+- contradiction target states.
+
+Complexity should increase through relationships, not simply room size.
+
+### Environmental storytelling separation
+
+Story dressing should reinforce place without impersonating puzzle cues.
+
+A handwritten note, old photograph, or archived file should not use the same amber, motion, sound, or placement language used for correctable events.
+
+Players must be able to distinguish:
+- "this tells me about the world"
+from
+- "this is mechanically actionable."
+
+### Level blocking requirement
+
+Before final art production, every puzzle is validated in graybox with:
+- actor routes,
+- state-changing objects,
+- observation anchors,
+- sightlines,
+- sound cue positions,
+- reset behavior.
+
+Decoration is not allowed to solve a legibility problem that the graybox itself fails to solve.
