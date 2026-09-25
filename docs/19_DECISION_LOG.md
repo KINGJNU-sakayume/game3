@@ -230,3 +230,13 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-073 — Investigation ambiguity
 **Locked.** N13 establishes multi-factor technical/procedural causes, notes response delay, and preserves uncertainty about whether earlier intervention would certainly have changed the outcome.
+
+
+## D-074 — Design milestone split
+**Locked.** UNDO distinguishes Design Baseline Complete from Campaign Design Lock. The baseline is complete now; full campaign detail is intentionally deferred until Prototype A/B/C and the vertical slice validate the core experience.
+
+## D-075 — Stop high-level expansion
+**Locked.** No further broad high-level design expansion is required before implementation bootstrap. The next project action is Phase 1 repository/engine bootstrap, followed by Prototype A → B → C → vertical slice.
+
+## D-076 — Campaign design lock timing
+**Locked.** Detailed sheets for all sixteen campaign puzzles, the full facility macro route, advanced multi-slot mechanics, and final Act V mechanics are locked only after prototype/vertical-slice evidence exists.
