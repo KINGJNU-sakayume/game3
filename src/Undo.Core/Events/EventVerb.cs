@@ -1,0 +1,30 @@
+namespace Undo.Core.Events;
+
+public enum EventVerb
+{
+    Open,
+    Close,
+    Lock,
+    Unlock,
+    Take,
+    Place,
+    Enter,
+    Exit,
+    Start,
+    Stop,
+    Power,
+    Unpower,
+    Detect,
+    Authorize,
+    Deny,
+    Activate,
+    Deactivate,
+    Raise,
+    Lower,
+    Break,
+    Repair,
+    Send,
+    Receive,
+    Connect,
+    Disconnect,
+}
