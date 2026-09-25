@@ -55,6 +55,7 @@ The following areas have a stable design direction:
 - detailed 25–35 minute continuous vertical-slice level sheet and pacing/spoiler boundaries,
 - gated content-production lifecycle from concept through polish,
 - art/audio integration rules preserving semantic causal authority,
+- detailed N01–N14 essential narrative artifact/media/reveal specification,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
