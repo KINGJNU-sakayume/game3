@@ -52,6 +52,7 @@ The following areas have a stable design direction:
 - first-person movement/camera/input experience rules,
 - standardized puzzle authoring/graybox gate template,
 - detailed Prototype A/B/C graybox level sheets with timing, commit points, observation anchors, reset, and playtest criteria,
+- detailed 25–35 minute continuous vertical-slice level sheet and pacing/spoiler boundaries,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
