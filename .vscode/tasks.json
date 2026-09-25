@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "UNDO: Play Prototype A (Codespaces)",
+      "type": "shell",
+      "command": "bash tools/codespaces/play-prototype-a.sh",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      }
+    },
+    {
+      "label": "UNDO: Validate Prototype A",
+      "type": "shell",
+      "command": "dotnet restore UNDO.sln && dotnet build UNDO.sln --configuration Release --no-restore && dotnet test tests/Undo.Core.Tests/Undo.Core.Tests.csproj --configuration Release --no-build && dotnet run --project tools/Undo.ContentValidator/Undo.ContentValidator.csproj --configuration Release --no-build -- game/content && godot --headless --path game --quit-after 3 && timeout 30s godot --headless --path game res://scenes/tests/prototype_a_integration.tscn",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      }
+    }
+  ]
+}
