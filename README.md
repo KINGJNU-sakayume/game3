@@ -72,6 +72,7 @@ Engineering:
 - `docs/35_PROTOTYPE_A_LEVEL_SHEET.md`
 - `docs/36_PROTOTYPE_B_LEVEL_SHEET.md`
 - `docs/37_PROTOTYPE_C_LEVEL_SHEET.md`
+- `docs/38_VERTICAL_SLICE_LEVEL_SHEET.md`
 
 Production:
 - `docs/23_VERTICAL_SLICE.md`
