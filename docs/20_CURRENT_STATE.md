@@ -29,6 +29,7 @@ The following areas have a stable design direction:
 - minimal/diegetic UI philosophy,
 - Residual Exposure visual direction,
 - institutional art direction,
+- audio direction and sound-as-gameplay-information rules,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
@@ -47,19 +48,18 @@ The following areas have a stable design direction:
 
 Before production coding, complete:
 
-1. audio direction,
-2. environmental information design,
-3. technical architecture,
-4. formal event/state data specification,
-5. NPC behavior architecture,
-6. save/restore architecture,
-7. content registry,
-8. asset registry,
-9. testing strategy,
-10. coding standards,
-11. prototype acceptance criteria,
-12. vertical-slice specification,
-13. production roadmap.
+1. environmental information design,
+2. technical architecture,
+3. formal event/state data specification,
+4. NPC behavior architecture,
+5. save/restore architecture,
+6. content registry,
+7. asset registry,
+8. testing strategy,
+9. coding standards,
+10. prototype acceptance criteria,
+11. vertical-slice specification,
+12. production roadmap.
 
 ## Prototype gates
 
@@ -91,7 +91,6 @@ Not yet locked:
 - exact correction color values,
 - exact font family/licensing,
 - final institution name if legal/localization review requires adjustment,
-- detailed audio system,
 - exact failure/hint tuning,
 - exact save-slot policy,
 - final vertical-slice map,
