@@ -34,7 +34,10 @@ Before planning or implementing gameplay work, read at minimum:
 24. `docs/32_PLAYTEST_PROTOCOL.md`
 25. `docs/33_PLAYER_EXPERIENCE.md`
 26. `docs/34_PUZZLE_AUTHORING_TEMPLATE.md`
-27. `docs/20_CURRENT_STATE.md`
+27. `docs/35_PROTOTYPE_A_LEVEL_SHEET.md`
+28. `docs/36_PROTOTYPE_B_LEVEL_SHEET.md`
+29. `docs/37_PROTOTYPE_C_LEVEL_SHEET.md`
+30. `docs/20_CURRENT_STATE.md`
 
 For narrative, level, or presentation work also read:
 - `docs/06_PROGRESSION.md`
