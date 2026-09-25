@@ -69,6 +69,9 @@ Engineering:
 - `docs/32_PLAYTEST_PROTOCOL.md`
 - `docs/33_PLAYER_EXPERIENCE.md`
 - `docs/34_PUZZLE_AUTHORING_TEMPLATE.md`
+- `docs/35_PROTOTYPE_A_LEVEL_SHEET.md`
+- `docs/36_PROTOTYPE_B_LEVEL_SHEET.md`
+- `docs/37_PROTOTYPE_C_LEVEL_SHEET.md`
 
 Production:
 - `docs/23_VERTICAL_SLICE.md`
