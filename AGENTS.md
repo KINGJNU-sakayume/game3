@@ -32,7 +32,9 @@ Before planning or implementing gameplay work, read at minimum:
 22. `docs/30_CI_WORKFLOW.md`
 23. `docs/31_AI_DEVELOPMENT_WORKFLOW.md`
 24. `docs/32_PLAYTEST_PROTOCOL.md`
-25. `docs/20_CURRENT_STATE.md`
+25. `docs/33_PLAYER_EXPERIENCE.md`
+26. `docs/34_PUZZLE_AUTHORING_TEMPLATE.md`
+27. `docs/20_CURRENT_STATE.md`
 
 For narrative, level, or presentation work also read:
 - `docs/06_PROGRESSION.md`
