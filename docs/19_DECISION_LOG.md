@@ -116,3 +116,16 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-038 — Debug tooling
 **Locked.** Causal-state/event/NPC inspection tools are first-class development requirements and are exempt from player-facing visual style restrictions.
+
+
+## D-039 — Test stack
+**Locked.** Pure causal-domain tests use standard `dotnet test` with xUnit. Godot headless/integration checks are a separate layer.
+
+## D-040 — Prototype gating
+**Locked.** Prototype A validates basic correction, Prototype B validates Consequence Persistence and is the critical greenlight gate, Prototype C validates deterministic NPC reaction. Full campaign production waits until these gates and the vertical slice pass.
+
+## D-041 — Coding boundary
+**Locked.** Gameplay state changes occur through explicit domain/application operations and recorded events. Scene scripts must not silently mutate causal state.
+
+## D-042 — Content/debug validation
+**Locked.** Stable IDs, causal content, and puzzle bindings require command-line validation and development-only inspection tooling.
