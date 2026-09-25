@@ -194,3 +194,13 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-062 — Reaction persistence
 **Locked for Prototype C.** Once the MissingBadge reaction legitimately fires for its trigger instance, releasing the original correction does not retroactively erase that already-triggered present-time reaction; the authored reaction completes.
+
+
+## D-063 — Vertical slice detailed flow
+**Locked.** `VS_R4_TRANSFER` is one continuous Repository 4 work area, not five test chambers. It teaches in order: basic correction → route redirect → Consequence Persistence → observed NPC reaction → release timing, all with correction capacity 1.
+
+## D-064 — Vertical slice pacing
+**Locked as baseline.** First-play target is roughly 25–35 minutes, with Persistence as the longest centerpiece and controlled quiet traversal between major causal lessons.
+
+## D-065 — Vertical slice spoiler boundary
+**Locked.** The slice may establish migration/closure and institutional inconsistency but does not reveal Record 0, the 39-second gap, or Seojin accident details.
