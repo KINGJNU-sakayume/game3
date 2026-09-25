@@ -47,6 +47,8 @@ The following areas have a stable design direction:
 - Korean/English localization pipeline and key policy,
 - repository/bootstrap specification,
 - CI and repository quality workflow,
+- ChatGPT/GitHub/Codex handoff workflow,
+- prototype and puzzle playtest protocol,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
