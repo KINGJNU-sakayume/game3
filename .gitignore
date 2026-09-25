@@ -1,0 +1,30 @@
+# Godot generated/import cache
+.godot/
+
+# .NET build output
+**/bin/
+**/obj/
+
+# IDE/editor user state
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.userprefs
+
+# Generated logs/build output
+logs/
+build/
+dist/
+*.log
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Private export/signing material
+export_credentials.cfg
+*.pfx
+*.p12
+*.keystore

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "puzzleId": "PT_A_BASIC_CORRECTION",
+  "displayNameKey": "PUZZLE.PT_A_BASIC_CORRECTION.NAME",
+  "correctionCapacity": 1,
+  "locations": [
+    "LOC_PT_A_PLAYER_START",
+    "LOC_PT_A_WORKER_START",
+    "LOC_PT_A_DOOR_INSIDE",
+    "LOC_PT_A_DOOR_OUTSIDE",
+    "LOC_PT_A_EXIT"
+  ],
+  "initialState": {
+    "DOOR_A": {
+      "OPEN": true,
+      "LOCK": "UNLOCKED"
+    }
+  },
+  "actors": [
+    {
+      "actorId": "NPC_WORKER_01",
+      "initialLocation": "LOC_PT_A_WORKER_START",
+      "initialMemory": {},
+      "routine": []
+    }
+  ],
+  "completion": {
+    "all": []
+  }
+}

@@ -1,0 +1,53 @@
+; Engine configuration file.
+; Bootstrap baseline for UNDO. Prefer editing engine-specific settings through Godot.
+
+config_version=5
+
+[application]
+
+config/name="UNDO"
+run/main_scene="res://scenes/bootstrap/bootstrap.tscn"
+config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+
+[dotnet]
+
+project/assembly_name="Undo.Game"
+
+[input]
+
+move_forward={
+"deadzone": 0.5,
+"events": Array[InputEvent]([])
+}
+move_back={
+"deadzone": 0.5,
+"events": Array[InputEvent]([])
+}
+move_left={
+"deadzone": 0.5,
+"events": Array[InputEvent]([])
+}
+move_right={
+"deadzone": 0.5,
+"events": Array[InputEvent]([])
+}
+review={
+"deadzone": 0.5,
+"events": Array[InputEvent]([])
+}
+correction_commit={
+"deadzone": 0.5,
+"events": Array[InputEvent]([])
+}
+correction_release={
+"deadzone": 0.5,
+"events": Array[InputEvent]([])
+}
+pause={
+"deadzone": 0.5,
+"events": Array[InputEvent]([])
+}
+
+[rendering]
+
+renderer/rendering_method="forward_plus"

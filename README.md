@@ -4,9 +4,9 @@ A first-person causal puzzle game about undoing recorded actions without rewindi
 
 ## Project status
 
-**Phase:** Design baseline v1 complete; ready for repository/bootstrap implementation  
-**Implementation:** Not started  
-**Current objective:** Bootstrap Godot/.NET architecture, then validate Prototype A → B → C before any campaign production.
+**Phase:** Phase 1 repository/engine bootstrap complete; ready for Prototype A  
+**Implementation:** Bootstrap foundation implemented; gameplay prototypes not started  
+**Current objective:** Validate Prototype A → B → C before any campaign production.
 
 ## Core premise
 

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "puzzles": [
+    {
+      "puzzleId": "PT_A_BASIC_CORRECTION",
+      "path": "res://content/puzzles/PT_A_BASIC_CORRECTION/puzzle.json"
+    }
+  ]
+}
