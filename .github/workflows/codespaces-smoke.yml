@@ -1,0 +1,39 @@
+name: Codespaces Smoke
+
+on:
+  pull_request:
+    paths:
+      - ".devcontainer/**"
+      - ".vscode/tasks.json"
+      - "tools/codespaces/**"
+      - ".github/workflows/codespaces-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  devcontainer:
+    name: Build Codespaces devcontainer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and smoke-test devcontainer
+        uses: devcontainers/ci@v0.3
+        with:
+          push: never
+          runCmd: |
+            set -euo pipefail
+            echo "DISPLAY=$DISPLAY"
+            test "$DISPLAY" = ":1"
+            godot_version="$(godot --version)"
+            echo "Godot: $godot_version"
+            [[ "$godot_version" == 4.7.2* ]]
+            [[ "$godot_version" == *mono* ]]
+            echo ".NET: $(dotnet --version)"
+            dotnet build game/Undo.Game.csproj --configuration Debug
+            bash -n tools/codespaces/install-godot.sh
+            bash -n tools/codespaces/play-prototype-a.sh
