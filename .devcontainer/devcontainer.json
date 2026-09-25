@@ -1,0 +1,36 @@
+{
+  "name": "UNDO — Godot 4.7.2 .NET",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/dotnet:2": {
+      "version": "8.0"
+    },
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "noPassword",
+      "webPort": "6080",
+      "vncPort": "5901"
+    }
+  },
+  "forwardPorts": [
+    6080
+  ],
+  "portsAttributes": {
+    "6080": {
+      "label": "UNDO Desktop (noVNC)",
+      "protocol": "http",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "bash tools/codespaces/install-godot.sh && dotnet restore UNDO.sln",
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}
