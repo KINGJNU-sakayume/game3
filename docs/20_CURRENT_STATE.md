@@ -70,6 +70,12 @@ The following areas have a stable design direction:
 **Signature behavior:** downstream recorded consequences persist  
 **Narrative limit:** the absent action at the center of Record 0 cannot be undone.
 
+## Design milestone
+
+**Design Baseline v1: COMPLETE.**
+
+Do not continue expanding high-level design before evidence from prototypes. Full campaign detailed design is intentionally deferred until Prototype A/B/C and the vertical slice validate the mechanic and production pipeline. See `docs/42_DESIGN_COMPLETION_CHECKLIST.md`.
+
 ## Implementation readiness
 
 The blocking design documents required for repository bootstrap and Prototype A are now present.
