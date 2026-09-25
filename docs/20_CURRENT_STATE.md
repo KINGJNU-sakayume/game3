@@ -30,6 +30,7 @@ The following areas have a stable design direction:
 - Residual Exposure visual direction,
 - institutional art direction,
 - audio direction and sound-as-gameplay-information rules,
+- environmental information/readability rules for level design,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
@@ -48,18 +49,17 @@ The following areas have a stable design direction:
 
 Before production coding, complete:
 
-1. environmental information design,
-2. technical architecture,
-3. formal event/state data specification,
-4. NPC behavior architecture,
-5. save/restore architecture,
-6. content registry,
-7. asset registry,
-8. testing strategy,
-9. coding standards,
-10. prototype acceptance criteria,
-11. vertical-slice specification,
-12. production roadmap.
+1. technical architecture,
+2. formal event/state data specification,
+3. NPC behavior architecture,
+4. save/restore architecture,
+5. content registry,
+6. asset registry,
+7. testing strategy,
+8. coding standards,
+9. prototype acceptance criteria,
+10. vertical-slice specification,
+11. production roadmap.
 
 ## Prototype gates
 
