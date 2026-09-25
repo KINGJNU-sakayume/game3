@@ -230,7 +230,7 @@ position = Vector3(-2.5, 0, 2.5)
 position = Vector3(0, 0, 0.5)
 
 [node name="LOC_PT_A_WORKER_START" type="Marker3D" parent="Locations"]
-position = Vector3(2.5, 0, 0.5)
+position = Vector3(2.5, 0, -1.2)
 
 [node name="LOC_PT_A_DOOR_INSIDE" type="Marker3D" parent="Locations"]
 position = Vector3(2.8, 0, -3.2)
@@ -265,7 +265,7 @@ enabled = true
 
 [node name="Worker" type="Node3D" parent="."]
 unique_name_in_owner = true
-position = Vector3(2.5, 0, 0.5)
+position = Vector3(2.5, 0, -1.2)
 script = ExtResource("3_worker")
 
 [node name="Body" type="MeshInstance3D" parent="Worker"]

@@ -5,9 +5,9 @@ Last implementation sync: 2026-09-25
 
 ## Phase
 
-**Phase 1 repository / engine bootstrap complete — ready for Prototype A**
+**Phase 2 Prototype A implemented — technical validation passed, human playtest pending**
 
-The repository foundation defined by `docs/29_PROJECT_BOOTSTRAP.md` is implemented, merged into `main`, and validated. Prototype A gameplay remains unimplemented, and campaign production must still pass the prototype gates.
+The repository bootstrap is complete. `PT_A_BASIC_CORRECTION` is implemented as a graybox and has passed automated domain, content, Godot smoke, and Prototype A integration validation. Human comprehension/UX playtesting remains required before Prototype A is considered passed or Prototype B begins.
 
 ## Canon completed
 
@@ -79,11 +79,11 @@ Do not continue expanding high-level design before evidence from prototypes. Ful
 
 ## Implementation readiness
 
-Repository / Godot 4.7.2 .NET bootstrap is complete and merged into `main`. The foundation now includes the Godot project, `Undo.Core`, xUnit tests, content-validator skeleton, localization source structure, CI, and a passing pure-domain correction golden test.
+Repository / Godot 4.7.2 .NET bootstrap is complete. Prototype A now includes the graybox level, deterministic worker routine, recorded CLOSE event, semantic door binding, object-local Review, correction commit/release, restore, debug instrumentation, authored content, validator coverage, domain regressions, and a headless integration scenario.
 
-Next implementation sequence when requested:
+Next project sequence:
 
-1. Prototype A,
+1. Prototype A human comprehension/UX playtest and any required Prototype A revision,
 2. Prototype B greenlight gate,
 3. Prototype C,
 4. vertical slice.
@@ -93,6 +93,7 @@ Further design refinement continues as implementation/playtesting produces evide
 ## Prototype gates
 
 ### Prototype A — Basic correction
+Implementation status: **TECHNICALLY VALIDATED — HUMAN PLAYTEST PENDING**  
 NPC closes door → player suppresses event → door returns to effective open state.
 
 ### Prototype B — Consequence Persistence

@@ -23,14 +23,42 @@ dotnet run --project tools/Undo.ContentValidator/Undo.ContentValidator.csproj --
 
 Then open `game/project.godot` in Godot 4.7.2 .NET.
 
-For a command-line smoke check, use the Godot 4.7.2 .NET executable available on your machine:
+## Run Prototype A
+
+The project main scene is `PT_A_BASIC_CORRECTION`.
+
+From the Godot editor, press **Run Project (F6/F5 as configured by the editor)** after opening `game/project.godot`.
+
+From a shell, substitute your local Godot 4.7.2 .NET executable name if it is not `godot`:
 
 ```bash
-godot --headless --path game --quit-after 3
+godot --path game
 ```
 
-The exact executable name may differ by OS/install method.
+Prototype A controls:
 
-## Bootstrap boundary
+- Move — WASD
+- Look — Mouse
+- Review Door A — hold Right Mouse Button while targeting the door
+- Commit correction — Left Mouse Button while in Review
+- Release maintained correction — Q while in Review
+- Inspect — E (non-causal; Door A does not directly respond)
+- Pause / Restore Current Record — Escape
+- Development debug overlay — F3
 
-The current repository foundation intentionally does not implement Prototype A gameplay. Bootstrap establishes only the domain, project, content-validation, localization, debug/logging, test, and CI foundations required by `docs/29_PROJECT_BOOTSTRAP.md`.
+## Command-line validation
+
+```bash
+dotnet restore UNDO.sln
+dotnet build UNDO.sln --configuration Release --no-restore
+dotnet test tests/Undo.Core.Tests/Undo.Core.Tests.csproj --configuration Release --no-build
+dotnet run --project tools/Undo.ContentValidator/Undo.ContentValidator.csproj --configuration Release --no-build -- game/content
+godot --headless --path game --quit-after 3
+godot --headless --path game res://scenes/tests/prototype_a_integration.tscn
+```
+
+The exact Godot executable name may differ by OS/install method.
+
+## Current implementation boundary
+
+Prototype A is implemented for mechanic validation. Prototype B, NPC ReactionRules, campaign levels, final art/audio/UI, and later mechanics remain intentionally unimplemented.
