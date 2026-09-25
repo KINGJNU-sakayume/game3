@@ -67,6 +67,8 @@ Engineering:
 - `docs/30_CI_WORKFLOW.md`
 - `docs/31_AI_DEVELOPMENT_WORKFLOW.md`
 - `docs/32_PLAYTEST_PROTOCOL.md`
+- `docs/33_PLAYER_EXPERIENCE.md`
+- `docs/34_PUZZLE_AUTHORING_TEMPLATE.md`
 
 Production:
 - `docs/23_VERTICAL_SLICE.md`
