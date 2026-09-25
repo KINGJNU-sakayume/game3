@@ -15,7 +15,11 @@ Before planning or implementing gameplay work, read at minimum:
 5. `docs/04_PLAYER_RULES.md`
 6. `docs/05_PUZZLE_GRAMMAR.md`
 7. `docs/19_DECISION_LOG.md`
-8. `docs/20_CURRENT_STATE.md`
+8. `docs/14_TECHNICAL_ARCHITECTURE.md`
+9. `docs/15_EVENT_SYSTEM.md`
+10. `docs/16_NPC_BEHAVIOR.md`
+11. `docs/17_SAVE_SYSTEM.md`
+12. `docs/20_CURRENT_STATE.md`
 
 For narrative, level, or presentation work also read:
 - `docs/06_PROGRESSION.md`
@@ -30,7 +34,7 @@ For narrative, level, or presentation work also read:
 
 **The project is still in pre-production. Do not assume permission to implement the full game.**
 
-Until the technical architecture and prototype specifications are added, implementation tasks should remain limited to explicitly requested prototypes or repository/tooling setup.
+Technical architecture is now locked, but prototype specifications are not yet complete. Implementation tasks should remain limited to explicitly requested repository/tooling setup until the prototype acceptance/specification documents are added; then implementation may proceed only through those prototype gates.
 
 ## Conflict rule
 
@@ -62,6 +66,8 @@ Never casually violate these:
 
 When implementation begins:
 
+- Use Godot 4.7.2 stable .NET + C# unless the repository explicitly revises the engine decision.
+- Keep causal gameplay authority in `Undo.Core`; Godot scenes are presentation/application bindings.
 - Prefer data-driven event and puzzle definitions.
 - Keep causal state logic separate from presentation.
 - Keep NPC routine/reaction rules inspectable and deterministic.
