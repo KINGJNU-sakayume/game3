@@ -1,12 +1,13 @@
 # UNDO — Current State
 
 Last design sync: 2026-09-25
+Last implementation sync: 2026-09-25
 
 ## Phase
 
 **Phase 1 repository / engine bootstrap complete — ready for Prototype A**
 
-The repository foundation defined by `docs/29_PROJECT_BOOTSTRAP.md` is implemented and validated. Prototype A gameplay remains unimplemented, and campaign production must still pass the prototype gates.
+The repository foundation defined by `docs/29_PROJECT_BOOTSTRAP.md` is implemented, merged into `main`, and validated. Prototype A gameplay remains unimplemented, and campaign production must still pass the prototype gates.
 
 ## Canon completed
 
@@ -78,7 +79,7 @@ Do not continue expanding high-level design before evidence from prototypes. Ful
 
 ## Implementation readiness
 
-Repository / Godot 4.7.2 .NET bootstrap is complete. The foundation now includes the Godot project, `Undo.Core`, xUnit tests, content-validator skeleton, localization source structure, CI, and a passing pure-domain correction golden test.
+Repository / Godot 4.7.2 .NET bootstrap is complete and merged into `main`. The foundation now includes the Godot project, `Undo.Core`, xUnit tests, content-validator skeleton, localization source structure, CI, and a passing pure-domain correction golden test.
 
 Next implementation sequence when requested:
 
