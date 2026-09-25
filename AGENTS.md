@@ -37,7 +37,8 @@ Before planning or implementing gameplay work, read at minimum:
 27. `docs/35_PROTOTYPE_A_LEVEL_SHEET.md`
 28. `docs/36_PROTOTYPE_B_LEVEL_SHEET.md`
 29. `docs/37_PROTOTYPE_C_LEVEL_SHEET.md`
-30. `docs/20_CURRENT_STATE.md`
+30. `docs/38_VERTICAL_SLICE_LEVEL_SHEET.md`
+31. `docs/20_CURRENT_STATE.md`
 
 For narrative, level, or presentation work also read:
 - `docs/06_PROGRESSION.md`
