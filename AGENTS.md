@@ -40,7 +40,8 @@ Before planning or implementing gameplay work, read at minimum:
 30. `docs/38_VERTICAL_SLICE_LEVEL_SHEET.md`
 31. `docs/39_CONTENT_PRODUCTION_PIPELINE.md`
 32. `docs/40_ART_AUDIO_INTEGRATION_PIPELINE.md`
-33. `docs/20_CURRENT_STATE.md`
+33. `docs/41_NARRATIVE_ARTIFACT_SPEC.md`
+34. `docs/20_CURRENT_STATE.md`
 
 For narrative, level, or presentation work also read:
 - `docs/06_PROGRESSION.md`
