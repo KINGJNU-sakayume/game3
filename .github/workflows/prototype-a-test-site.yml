@@ -1,0 +1,203 @@
+name: Prototype A Test Site
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prototype-a-test-site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate and render report
+    runs-on: ubuntu-latest
+    outputs:
+      overall: ${{ steps.summary.outputs.overall }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        id: restore
+        continue-on-error: true
+        run: dotnet restore UNDO.sln
+
+      - name: Solution build
+        id: solution_build
+        if: always() && steps.restore.outcome == 'success'
+        continue-on-error: true
+        run: dotnet build UNDO.sln --configuration Release --no-restore
+
+      - name: Domain tests
+        id: domain_tests
+        if: always() && steps.solution_build.outcome == 'success'
+        continue-on-error: true
+        run: dotnet test tests/Undo.Core.Tests/Undo.Core.Tests.csproj --configuration Release --no-build
+
+      - name: Content validation
+        id: content_validation
+        if: always() && steps.solution_build.outcome == 'success'
+        continue-on-error: true
+        run: dotnet run --project tools/Undo.ContentValidator/Undo.ContentValidator.csproj --configuration Release --no-build -- game/content
+
+      - name: Godot C# build
+        id: godot_build
+        if: always() && steps.restore.outcome == 'success'
+        continue-on-error: true
+        run: dotnet build game/Undo.Game.csproj --configuration Debug --no-restore
+
+      - name: Install Godot 4.7.2 .NET
+        id: godot_install
+        if: always() && steps.godot_build.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/godot-mono.zip"
+          install_dir="$RUNNER_TEMP/godot-4.7.2"
+          curl -fL "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_mono_linux_x86_64.zip" -o "$archive"
+          mkdir -p "$install_dir"
+          unzip -q "$archive" -d "$install_dir"
+          godot_bin="$(find "$install_dir" -type f -name 'Godot_v4.7.2-stable_mono_linux.x86_64' -print -quit)"
+          test -n "$godot_bin"
+          chmod +x "$godot_bin"
+          echo "GODOT_BIN=$godot_bin" >> "$GITHUB_ENV"
+
+      - name: Godot headless smoke
+        id: headless_smoke
+        if: always() && steps.godot_install.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: '"$GODOT_BIN" --headless --path game --quit-after 3'
+
+      - name: Prototype A integration
+        id: prototype_a_integration
+        if: always() && steps.godot_install.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: timeout 30s "$GODOT_BIN" --headless --path game res://scenes/tests/prototype_a_integration.tscn
+
+      - name: Summarize required checks
+        id: summary
+        if: always()
+        shell: bash
+        env:
+          RESTORE: ${{ steps.restore.outcome }}
+          SOLUTION_BUILD: ${{ steps.solution_build.outcome }}
+          DOMAIN_TESTS: ${{ steps.domain_tests.outcome }}
+          CONTENT_VALIDATION: ${{ steps.content_validation.outcome }}
+          GODOT_BUILD: ${{ steps.godot_build.outcome }}
+          HEADLESS_SMOKE: ${{ steps.headless_smoke.outcome }}
+          PROTOTYPE_A_INTEGRATION: ${{ steps.prototype_a_integration.outcome }}
+        run: |
+          set -euo pipefail
+
+          overall=success
+          for value in             "$RESTORE"             "$SOLUTION_BUILD"             "$DOMAIN_TESTS"             "$CONTENT_VALIDATION"             "$GODOT_BUILD"             "$HEADLESS_SMOKE"             "$PROTOTYPE_A_INTEGRATION"
+          do
+            if [[ "$value" != "success" ]]; then
+              overall=failure
+            fi
+          done
+
+          echo "overall=$overall" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "## Prototype A test site"
+            echo
+            echo "- Restore: $RESTORE"
+            echo "- Solution build: $SOLUTION_BUILD"
+            echo "- Domain tests: $DOMAIN_TESTS"
+            echo "- Content validation: $CONTENT_VALIDATION"
+            echo "- Godot C# build: $GODOT_BUILD"
+            echo "- Headless smoke: $HEADLESS_SMOKE"
+            echo "- Prototype A integration: $PROTOTYPE_A_INTEGRATION"
+            echo
+            echo "**Overall: $overall**"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Render static test report
+        if: always()
+        env:
+          UNDO_SITE_DIR: artifacts/test-site
+          UNDO_STATUS_RESTORE: ${{ steps.restore.outcome }}
+          UNDO_STATUS_SOLUTION_BUILD: ${{ steps.solution_build.outcome }}
+          UNDO_STATUS_DOMAIN_TESTS: ${{ steps.domain_tests.outcome }}
+          UNDO_STATUS_CONTENT_VALIDATION: ${{ steps.content_validation.outcome }}
+          UNDO_STATUS_GODOT_BUILD: ${{ steps.godot_build.outcome }}
+          UNDO_STATUS_HEADLESS_SMOKE: ${{ steps.headless_smoke.outcome }}
+          UNDO_STATUS_PROTOTYPE_A_INTEGRATION: ${{ steps.prototype_a_integration.outcome }}
+        run: python3 tools/ci/render_test_site.py
+
+      - name: Upload test report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prototype-a-test-site
+          path: artifacts/test-site
+          retention-days: 14
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy report to GitHub Pages
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Download rendered report
+        uses: actions/download-artifact@v4
+        with:
+          name: prototype-a-test-site
+          path: artifacts/test-site
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: artifacts/test-site
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  quality-gate:
+    name: Prototype A test quality gate
+    if: always()
+    needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Require all validation checks to pass
+        shell: bash
+        env:
+          OVERALL: ${{ needs.validate.outputs.overall }}
+        run: |
+          if [[ "$OVERALL" != "success" ]]; then
+            echo "Prototype A validation failed. Open the test report artifact/site for details."
+            exit 1
+          fi
+
+          echo "Prototype A validation passed."
