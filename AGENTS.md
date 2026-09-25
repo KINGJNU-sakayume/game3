@@ -22,7 +22,11 @@ Before planning or implementing gameplay work, read at minimum:
 12. `docs/18_TESTING_STRATEGY.md`
 13. `docs/21_CODING_STANDARDS.md`
 14. `docs/22_PROTOTYPE_SPEC.md`
-15. `docs/20_CURRENT_STATE.md`
+15. `docs/23_VERTICAL_SLICE.md`
+16. `docs/24_CONTENT_REGISTRY.md`
+17. `docs/25_ASSET_REGISTRY.md`
+18. `docs/26_PRODUCTION_ROADMAP.md`
+19. `docs/20_CURRENT_STATE.md`
 
 For narrative, level, or presentation work also read:
 - `docs/06_PROGRESSION.md`
