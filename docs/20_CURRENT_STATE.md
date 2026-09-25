@@ -4,9 +4,9 @@ Last design sync: 2026-09-25
 
 ## Phase
 
-**Pre-production / design lock**
+**Pre-production design baseline v1 complete — ready for implementation bootstrap**
 
-No gameplay implementation should be treated as production-ready yet.
+The canonical design baseline is complete enough to begin the repository/engine bootstrap described in `docs/29_PROJECT_BOOTSTRAP.md` when explicitly requested. Gameplay remains unimplemented, and campaign production must still pass the prototype gates.
 
 ## Canon completed
 
@@ -43,6 +43,10 @@ The following areas have a stable design direction:
 - campaign/narrative content registry,
 - reusable asset-kit budget and acquisition rules,
 - gate-based production roadmap,
+- JSON causal-content authoring standard,
+- Korean/English localization pipeline and key policy,
+- repository/bootstrap specification,
+- CI and repository quality workflow,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
@@ -57,13 +61,21 @@ The following areas have a stable design direction:
 **Signature behavior:** downstream recorded consequences persist  
 **Narrative limit:** the absent action at the center of Record 0 cannot be undone.
 
-## Next design work
+## Implementation readiness
 
-Before production coding, complete:
+The blocking design documents required for repository bootstrap and Prototype A are now present.
 
-1. localization/content-data format details,
-2. exact project bootstrap commands and CI workflow,
-3. final prototype playtest checklist refinements.
+Next implementation sequence when requested:
+
+1. repository / Godot 4.7.2 .NET bootstrap,
+2. pure-domain correction golden test,
+3. content validator skeleton,
+4. Prototype A,
+5. Prototype B greenlight gate,
+6. Prototype C,
+7. vertical slice.
+
+Further design refinement continues as implementation/playtesting produces evidence; it must update canon before behavior changes.
 
 ## Prototype gates
 
@@ -89,7 +101,7 @@ Do not start building all 16 levels before the three mechanic prototypes and ver
 
 ## Open decisions
 
-Not yet locked:
+Not yet locked but not blocking repository bootstrap:
 - exact input bindings,
 - exact correction color values,
 - exact font family/licensing,
