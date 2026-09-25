@@ -147,6 +147,8 @@ Outcome is derived from factual final world/record state, not a choice menu.
 ## Prototype content IDs
 
 ### PT_A_BASIC_CORRECTION
+Status: PROTOTYPE  
+Implementation: graybox and automated technical validation complete; human playtest pending.  
 See `docs/22_PROTOTYPE_SPEC.md`.
 
 ### PT_B_PERSISTENCE

@@ -40,4 +40,10 @@ public sealed class CorrectionState
 
         _suppressedInOrder.Remove(eventId);
     }
+
+    internal void Clear()
+    {
+        _suppressedInOrder.Clear();
+        _suppressedLookup.Clear();
+    }
 }

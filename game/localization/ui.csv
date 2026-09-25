@@ -4,3 +4,11 @@ UI.PAUSE.RESTORE_RECORD,현재 기록 복원,Restore Current Record
 UI.PAUSE.SETTINGS,설정,Settings
 UI.PAUSE.RETURN,돌아가기,Return
 UI.PAUSE.EXIT,나가기,Exit
+UI.PAUSE.TITLE,일시 정지,Paused
+UI.PROTO_A.PROMPT.REVIEW,검토 [오른쪽 마우스],Review [RMB]
+UI.PROTO_A.PROMPT.MAINTAINED,교정 유지 중 · 검토 [오른쪽 마우스],Correction maintained · Review [RMB]
+UI.PROTO_A.STATE.CLOSED,닫힘,Closed
+UI.PROTO_A.STATE.CLOSE_SUPPRESSED,닫기 기록 억제 중,Close record suppressed
+UI.PROTO_A.ACTION.COMMIT,교정 적용 [왼쪽 마우스],Commit correction [LMB]
+UI.PROTO_A.ACTION.RELEASE,교정 해제 [Q],Release correction [Q]
+UI.PROTO_A.COMPLETE,프로토타입 A 완료,Prototype A complete

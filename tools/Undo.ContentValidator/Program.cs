@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Undo.Core.Events;
 using Undo.Core.State;
 
 namespace Undo.ContentValidator;
@@ -7,6 +8,8 @@ namespace Undo.ContentValidator;
 internal static partial class Program
 {
     private const int SupportedSchemaVersion = 1;
+    private static readonly HashSet<string> AllowedRoutineStepTypes =
+        new(StringComparer.Ordinal) { "MOVE_TO", "WAIT", "INTENT" };
 
     public static int Main(string[] args)
     {
@@ -19,10 +22,17 @@ internal static partial class Program
             return 1;
         }
 
-        ValidateManifest(contentRoot, errors);
+        var puzzlesRoot = Path.Combine(contentRoot, "puzzles");
+        if (!Directory.Exists(puzzlesRoot))
+        {
+            Console.Error.WriteLine($"[CONTENT] Puzzle root does not exist: {puzzlesRoot}");
+            return 1;
+        }
+
+        var manifestEntries = ValidateManifest(contentRoot, errors);
 
         var puzzleFiles = Directory
-            .EnumerateFiles(Path.Combine(contentRoot, "puzzles"), "puzzle.json", SearchOption.AllDirectories)
+            .EnumerateFiles(puzzlesRoot, "puzzle.json", SearchOption.AllDirectories)
             .OrderBy(path => path, StringComparer.Ordinal)
             .ToArray();
 
@@ -31,9 +41,39 @@ internal static partial class Program
             errors.Add("No puzzle.json files were found under game/content/puzzles.");
         }
 
+        var puzzleIdsOnDisk = new HashSet<string>(StringComparer.Ordinal);
         foreach (var puzzleFile in puzzleFiles)
         {
-            ValidatePuzzle(puzzleFile, errors);
+            var puzzleId = ValidatePuzzle(puzzleFile, contentRoot, errors);
+            if (puzzleId is not null)
+            {
+                puzzleIdsOnDisk.Add(puzzleId);
+            }
+        }
+
+        foreach (var manifestEntry in manifestEntries)
+        {
+            if (!puzzleIdsOnDisk.Contains(manifestEntry.PuzzleId))
+            {
+                errors.Add(
+                    $"{manifestEntry.ManifestPath}: manifest puzzleId '{manifestEntry.PuzzleId}' has no matching validated puzzle file.");
+            }
+
+            if (File.Exists(manifestEntry.ResolvedPuzzlePath))
+            {
+                using var document = ParseDocument(manifestEntry.ResolvedPuzzlePath, errors);
+                if (document is not null &&
+                    document.RootElement.TryGetProperty("puzzleId", out var puzzleIdElement) &&
+                    puzzleIdElement.ValueKind == JsonValueKind.String &&
+                    !string.Equals(
+                        puzzleIdElement.GetString(),
+                        manifestEntry.PuzzleId,
+                        StringComparison.Ordinal))
+                {
+                    errors.Add(
+                        $"{manifestEntry.ManifestPath}: manifest puzzleId '{manifestEntry.PuzzleId}' does not match file puzzleId '{puzzleIdElement.GetString()}'.");
+                }
+            }
         }
 
         if (errors.Count > 0)
@@ -51,19 +91,21 @@ internal static partial class Program
         return 0;
     }
 
-    private static void ValidateManifest(string contentRoot, List<string> errors)
+    private static IReadOnlyList<ManifestEntry> ValidateManifest(string contentRoot, List<string> errors)
     {
         var manifestPath = Path.Combine(contentRoot, "manifests", "puzzles.json");
+        var entries = new List<ManifestEntry>();
+
         if (!File.Exists(manifestPath))
         {
             errors.Add($"{manifestPath}: puzzle manifest is missing.");
-            return;
+            return entries;
         }
 
         using var document = ParseDocument(manifestPath, errors);
         if (document is null)
         {
-            return;
+            return entries;
         }
 
         var root = document.RootElement;
@@ -72,7 +114,7 @@ internal static partial class Program
         if (!root.TryGetProperty("puzzles", out var puzzles) || puzzles.ValueKind != JsonValueKind.Array)
         {
             errors.Add($"{manifestPath}: $.puzzles must be an array.");
-            return;
+            return entries;
         }
 
         var seenPuzzleIds = new HashSet<string>(StringComparer.Ordinal);
@@ -81,41 +123,46 @@ internal static partial class Program
         {
             var puzzleId = ReadRequiredString(entry, "puzzleId", manifestPath, "$.puzzles[]", errors);
             var resourcePath = ReadRequiredString(entry, "path", manifestPath, "$.puzzles[]", errors);
+            var scenePath = ReadRequiredString(entry, "scenePath", manifestPath, "$.puzzles[]", errors);
 
             if (puzzleId is not null && !seenPuzzleIds.Add(puzzleId))
             {
                 errors.Add($"{manifestPath}: duplicate manifest puzzleId '{puzzleId}'.");
             }
 
-            if (resourcePath is null)
+            if (puzzleId is null || resourcePath is null || scenePath is null)
             {
                 continue;
             }
 
-            const string contentPrefix = "res://content/";
-            if (!resourcePath.StartsWith(contentPrefix, StringComparison.Ordinal))
-            {
-                errors.Add($"{manifestPath}: path '{resourcePath}' must begin with '{contentPrefix}'.");
-                continue;
-            }
+            var resolvedPuzzlePath = ResolveResourcePath(contentRoot, resourcePath, manifestPath, errors);
+            var resolvedScenePath = ResolveResourcePath(contentRoot, scenePath, manifestPath, errors);
 
-            var relativePath = resourcePath[contentPrefix.Length..]
-                .Replace('/', Path.DirectorySeparatorChar);
-            var resolvedPath = Path.Combine(contentRoot, relativePath);
-
-            if (!File.Exists(resolvedPath))
+            if (resolvedPuzzlePath is not null && !File.Exists(resolvedPuzzlePath))
             {
                 errors.Add($"{manifestPath}: referenced puzzle file does not exist: {resourcePath}.");
             }
+
+            if (resolvedScenePath is not null && !File.Exists(resolvedScenePath))
+            {
+                errors.Add($"{manifestPath}: referenced scene file does not exist: {scenePath}.");
+            }
+
+            if (resolvedPuzzlePath is not null)
+            {
+                entries.Add(new ManifestEntry(puzzleId, manifestPath, resolvedPuzzlePath));
+            }
         }
+
+        return entries;
     }
 
-    private static void ValidatePuzzle(string puzzlePath, List<string> errors)
+    private static string? ValidatePuzzle(string puzzlePath, string contentRoot, List<string> errors)
     {
         using var document = ParseDocument(puzzlePath, errors);
         if (document is null)
         {
-            return;
+            return null;
         }
 
         var root = document.RootElement;
@@ -127,6 +174,16 @@ internal static partial class Program
             errors.Add($"{puzzlePath}: $.puzzleId '{puzzleId}' is not a valid stable ID.");
         }
 
+        var scenePath = ReadRequiredString(root, "scenePath", puzzlePath, "$", errors);
+        if (scenePath is not null)
+        {
+            var resolvedScene = ResolveResourcePath(contentRoot, scenePath, puzzlePath, errors);
+            if (resolvedScene is not null && !File.Exists(resolvedScene))
+            {
+                errors.Add($"{puzzlePath}: $.scenePath does not exist: {scenePath}.");
+            }
+        }
+
         if (!root.TryGetProperty("correctionCapacity", out var capacity) ||
             capacity.ValueKind != JsonValueKind.Number ||
             !capacity.TryGetInt32(out var capacityValue) ||
@@ -136,8 +193,11 @@ internal static partial class Program
         }
 
         var locations = ReadLocations(root, puzzlePath, errors);
-        ValidateInitialState(root, locations, puzzlePath, errors);
-        ValidateActors(root, locations, puzzlePath, errors);
+        var entities = ValidateInitialState(root, locations, puzzlePath, errors);
+        ValidateActors(root, locations, entities, puzzlePath, errors);
+        ValidateCompletion(root, locations, puzzlePath, errors);
+
+        return puzzleId;
     }
 
     private static HashSet<string> ReadLocations(JsonElement root, string puzzlePath, List<string> errors)
@@ -161,9 +221,10 @@ internal static partial class Program
             }
 
             var locationId = location.GetString()!;
-            if (!locationId.StartsWith("LOC_", StringComparison.Ordinal))
+            if (!locationId.StartsWith("LOC_", StringComparison.Ordinal) ||
+                !StableIdPattern().IsMatch(locationId))
             {
-                errors.Add($"{puzzlePath}: location '{locationId}' must use the LOC_ prefix.");
+                errors.Add($"{puzzlePath}: location '{locationId}' must be a valid LOC_ stable ID.");
             }
 
             if (!locations.Add(locationId))
@@ -175,24 +236,24 @@ internal static partial class Program
         return locations;
     }
 
-    private static void ValidateInitialState(
+    private static HashSet<string> ValidateInitialState(
         JsonElement root,
         HashSet<string> locations,
         string puzzlePath,
         List<string> errors)
     {
+        var entities = new HashSet<string>(StringComparer.Ordinal);
+
         if (!root.TryGetProperty("initialState", out var initialState) ||
             initialState.ValueKind != JsonValueKind.Object)
         {
             errors.Add($"{puzzlePath}: $.initialState must be an object.");
-            return;
+            return entities;
         }
-
-        var seenEntities = new HashSet<string>(StringComparer.Ordinal);
 
         foreach (var entityProperty in initialState.EnumerateObject())
         {
-            if (!seenEntities.Add(entityProperty.Name))
+            if (!entities.Add(entityProperty.Name))
             {
                 errors.Add($"{puzzlePath}: duplicate initial-state entity '{entityProperty.Name}'.");
             }
@@ -208,16 +269,8 @@ internal static partial class Program
                 continue;
             }
 
-            var seenChannels = new HashSet<string>(StringComparer.Ordinal);
-
             foreach (var channelProperty in entityProperty.Value.EnumerateObject())
             {
-                if (!seenChannels.Add(channelProperty.Name))
-                {
-                    errors.Add(
-                        $"{puzzlePath}: duplicate state channel '{channelProperty.Name}' for '{entityProperty.Name}'.");
-                }
-
                 if (!Enum.TryParse<StateChannel>(channelProperty.Name, ignoreCase: true, out var channel))
                 {
                     errors.Add(
@@ -225,7 +278,8 @@ internal static partial class Program
                     continue;
                 }
 
-                if (!IsChannelValueValid(channel, channelProperty.Value))
+                if (!TryGetStateValueKind(channelProperty.Value, out var valueKind) ||
+                    !StateValueRules.IsCompatible(channel, valueKind))
                 {
                     errors.Add(
                         $"{puzzlePath}: invalid value type for {entityProperty.Name}.{channelProperty.Name}.");
@@ -243,11 +297,14 @@ internal static partial class Program
                 }
             }
         }
+
+        return entities;
     }
 
     private static void ValidateActors(
         JsonElement root,
         HashSet<string> locations,
+        HashSet<string> entities,
         string puzzlePath,
         List<string> errors)
     {
@@ -280,29 +337,185 @@ internal static partial class Program
                 {
                     errors.Add($"{puzzlePath}: duplicate actor ID '{actorId}'.");
                 }
+
+                entities.Add(actorId);
             }
 
             if (initialLocation is not null && !locations.Contains(initialLocation))
             {
                 errors.Add($"{puzzlePath}: actor references unknown initialLocation '{initialLocation}'.");
             }
+
+            ValidateRoutine(actor, locations, entities, puzzlePath, errors);
         }
     }
 
-    private static bool IsChannelValueValid(StateChannel channel, JsonElement value) =>
-        channel switch
+    private static void ValidateRoutine(
+        JsonElement actor,
+        HashSet<string> locations,
+        HashSet<string> entities,
+        string puzzlePath,
+        List<string> errors)
+    {
+        if (!actor.TryGetProperty("routine", out var routine) || routine.ValueKind != JsonValueKind.Array)
         {
-            StateChannel.Open => value.ValueKind is JsonValueKind.True or JsonValueKind.False,
-            StateChannel.Lock => value.ValueKind == JsonValueKind.String,
-            StateChannel.Position => value.ValueKind == JsonValueKind.String,
-            StateChannel.Possession => value.ValueKind == JsonValueKind.String,
-            StateChannel.Authorization => value.ValueKind == JsonValueKind.String,
-            StateChannel.Power => value.ValueKind is JsonValueKind.String or JsonValueKind.True or JsonValueKind.False,
-            _ => value.ValueKind is JsonValueKind.String
-                or JsonValueKind.Number
-                or JsonValueKind.True
-                or JsonValueKind.False,
-        };
+            errors.Add($"{puzzlePath}: $.actors[].routine must be an array.");
+            return;
+        }
+
+        foreach (var step in routine.EnumerateArray())
+        {
+            var type = ReadRequiredString(step, "type", puzzlePath, "$.actors[].routine[]", errors);
+            if (type is null)
+            {
+                continue;
+            }
+
+            if (!AllowedRoutineStepTypes.Contains(type))
+            {
+                errors.Add($"{puzzlePath}: unsupported routine step type '{type}'.");
+                continue;
+            }
+
+            if (type == "MOVE_TO")
+            {
+                var location = ReadRequiredString(
+                    step,
+                    "location",
+                    puzzlePath,
+                    "$.actors[].routine[]",
+                    errors);
+
+                if (location is not null && !locations.Contains(location))
+                {
+                    errors.Add($"{puzzlePath}: MOVE_TO references unknown location '{location}'.");
+                }
+
+                continue;
+            }
+
+            if (type == "WAIT")
+            {
+                if (!step.TryGetProperty("durationSeconds", out var duration) ||
+                    duration.ValueKind != JsonValueKind.Number ||
+                    !duration.TryGetDouble(out var durationValue) ||
+                    durationValue < 0)
+                {
+                    errors.Add($"{puzzlePath}: WAIT.durationSeconds must be a non-negative number.");
+                }
+
+                continue;
+            }
+
+            var verb = ReadRequiredString(step, "verb", puzzlePath, "$.actors[].routine[]", errors);
+            var target = ReadRequiredString(step, "target", puzzlePath, "$.actors[].routine[]", errors);
+            var source = ReadRequiredString(step, "source", puzzlePath, "$.actors[].routine[]", errors);
+
+            if (verb is not null && !Enum.TryParse<EventVerb>(verb, ignoreCase: true, out _))
+            {
+                errors.Add($"{puzzlePath}: INTENT verb '{verb}' is not in the canonical EventVerb vocabulary.");
+            }
+
+            if (target is not null && !entities.Contains(target))
+            {
+                errors.Add($"{puzzlePath}: INTENT target '{target}' is not a declared entity.");
+            }
+
+            if (!step.TryGetProperty("reversible", out var reversible) ||
+                reversible.ValueKind is not (JsonValueKind.True or JsonValueKind.False))
+            {
+                errors.Add($"{puzzlePath}: INTENT.reversible must be boolean.");
+            }
+
+            if (source is not null && !KnownRecordSources.Contains(source))
+            {
+                errors.Add($"{puzzlePath}: INTENT source '{source}' is not a supported record source.");
+            }
+        }
+    }
+
+    private static void ValidateCompletion(
+        JsonElement root,
+        HashSet<string> locations,
+        string puzzlePath,
+        List<string> errors)
+    {
+        if (!root.TryGetProperty("completion", out var completion) ||
+            completion.ValueKind != JsonValueKind.Object ||
+            !completion.TryGetProperty("all", out var all) ||
+            all.ValueKind != JsonValueKind.Array)
+        {
+            errors.Add($"{puzzlePath}: $.completion.all must be an array.");
+            return;
+        }
+
+        foreach (var predicate in all.EnumerateArray())
+        {
+            if (!predicate.TryGetProperty("playerAtLocation", out var playerAtLocation) ||
+                playerAtLocation.ValueKind != JsonValueKind.Object)
+            {
+                errors.Add($"{puzzlePath}: Prototype A completion supports only playerAtLocation predicates.");
+                continue;
+            }
+
+            var location = ReadRequiredString(
+                playerAtLocation,
+                "location",
+                puzzlePath,
+                "$.completion.all[].playerAtLocation",
+                errors);
+
+            if (location is not null && !locations.Contains(location))
+            {
+                errors.Add($"{puzzlePath}: completion references unknown location '{location}'.");
+            }
+        }
+    }
+
+    private static string? ResolveResourcePath(
+        string contentRoot,
+        string resourcePath,
+        string sourcePath,
+        List<string> errors)
+    {
+        const string prefix = "res://";
+        if (!resourcePath.StartsWith(prefix, StringComparison.Ordinal))
+        {
+            errors.Add($"{sourcePath}: resource path '{resourcePath}' must begin with '{prefix}'.");
+            return null;
+        }
+
+        var gameRoot = Directory.GetParent(contentRoot)?.FullName;
+        if (gameRoot is null)
+        {
+            errors.Add($"{sourcePath}: cannot resolve game root from '{contentRoot}'.");
+            return null;
+        }
+
+        return Path.Combine(
+            gameRoot,
+            resourcePath[prefix.Length..].Replace('/', Path.DirectorySeparatorChar));
+    }
+
+    private static bool TryGetStateValueKind(JsonElement value, out StateValueKind kind)
+    {
+        switch (value.ValueKind)
+        {
+            case JsonValueKind.True:
+            case JsonValueKind.False:
+                kind = StateValueKind.Boolean;
+                return true;
+            case JsonValueKind.Number when value.TryGetInt64(out _):
+                kind = StateValueKind.Integer;
+                return true;
+            case JsonValueKind.String:
+                kind = StateValueKind.Identifier;
+                return true;
+            default:
+                kind = default;
+                return false;
+        }
+    }
 
     private static void ValidateSchemaVersion(JsonElement root, string filePath, List<string> errors)
     {
@@ -352,6 +565,22 @@ internal static partial class Program
             return null;
         }
     }
+
+    private static readonly HashSet<string> KnownRecordSources =
+        new(StringComparer.Ordinal)
+        {
+            "ACCESS_CONTROL",
+            "MACHINERY",
+            "SECURITY",
+            "ARCHIVE_SYSTEM",
+            "ENVIRONMENTAL_SENSOR",
+            "CORRELATED_INSTITUTIONAL_RECORD",
+        };
+
+    private sealed record ManifestEntry(
+        string PuzzleId,
+        string ManifestPath,
+        string ResolvedPuzzlePath);
 
     [GeneratedRegex("^[A-Z0-9_]+$", RegexOptions.CultureInvariant)]
     private static partial Regex StableIdPattern();

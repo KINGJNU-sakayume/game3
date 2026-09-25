@@ -70,3 +70,7 @@ jobs:
       - name: Headless smoke
         shell: bash
         run: '"$GODOT_BIN" --headless --path game --quit-after 3'
+
+      - name: Prototype A integration
+        shell: bash
+        run: timeout 30s "$GODOT_BIN" --headless --path game res://scenes/tests/prototype_a_integration.tscn

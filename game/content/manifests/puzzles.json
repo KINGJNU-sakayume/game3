@@ -3,7 +3,8 @@
   "puzzles": [
     {
       "puzzleId": "PT_A_BASIC_CORRECTION",
-      "path": "res://content/puzzles/PT_A_BASIC_CORRECTION/puzzle.json"
+      "path": "res://content/puzzles/PT_A_BASIC_CORRECTION/puzzle.json",
+      "scenePath": "res://scenes/levels/PT_A_BASIC_CORRECTION.tscn"
     }
   ]
 }
