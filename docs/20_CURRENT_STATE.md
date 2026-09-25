@@ -4,9 +4,9 @@ Last design sync: 2026-09-25
 
 ## Phase
 
-**Pre-production design baseline v1 complete — ready for implementation bootstrap**
+**Phase 1 repository / engine bootstrap complete — ready for Prototype A**
 
-The canonical design baseline is complete enough to begin the repository/engine bootstrap described in `docs/29_PROJECT_BOOTSTRAP.md` when explicitly requested. Gameplay remains unimplemented, and campaign production must still pass the prototype gates.
+The repository foundation defined by `docs/29_PROJECT_BOOTSTRAP.md` is implemented and validated. Prototype A gameplay remains unimplemented, and campaign production must still pass the prototype gates.
 
 ## Canon completed
 
@@ -78,17 +78,14 @@ Do not continue expanding high-level design before evidence from prototypes. Ful
 
 ## Implementation readiness
 
-The blocking design documents required for repository bootstrap and Prototype A are now present.
+Repository / Godot 4.7.2 .NET bootstrap is complete. The foundation now includes the Godot project, `Undo.Core`, xUnit tests, content-validator skeleton, localization source structure, CI, and a passing pure-domain correction golden test.
 
 Next implementation sequence when requested:
 
-1. repository / Godot 4.7.2 .NET bootstrap,
-2. pure-domain correction golden test,
-3. content validator skeleton,
-4. Prototype A,
-5. Prototype B greenlight gate,
-6. Prototype C,
-7. vertical slice.
+1. Prototype A,
+2. Prototype B greenlight gate,
+3. Prototype C,
+4. vertical slice.
 
 Further design refinement continues as implementation/playtesting produces evidence; it must update canon before behavior changes.
 
@@ -116,7 +113,7 @@ Do not start building all 16 levels before the three mechanic prototypes and ver
 
 ## Open decisions
 
-Not yet locked but not blocking repository bootstrap:
+Not yet locked but not blocking Prototype A:
 - exact input bindings,
 - exact correction color values,
 - exact font family/licensing,
