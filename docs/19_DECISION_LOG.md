@@ -129,3 +129,16 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-042 — Content/debug validation
 **Locked.** Stable IDs, causal content, and puzzle bindings require command-line validation and development-only inspection tooling.
+
+
+## D-043 — Vertical slice scope
+**Locked.** The vertical slice is a 25–35 minute B1/B2 archive/security transfer sequence using one correction slot. It proves basic correction, redirect, Consequence Persistence, NPC reaction, and release timing without exposing Record 0 or later multi-slot mechanics.
+
+## D-044 — Campaign content registry
+**Locked.** The sixteen campaign puzzle spaces and essential narrative artifacts have stable IDs and must be registered before production implementation.
+
+## D-045 — Asset strategy
+**Locked.** Production relies on reusable institutional environment/device/character kits and era layering rather than large numbers of unique hero assets. Doors are a priority reusable family.
+
+## D-046 — Roadmap
+**Locked.** Production advances through design → engine bootstrap → Prototype A → Prototype B greenlight → Prototype C → vertical-slice graybox → polished vertical slice → act production → alpha/beta/RC. Prototype B remains the principal continuation gate.
