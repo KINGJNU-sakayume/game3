@@ -65,6 +65,8 @@ Engineering:
 - `docs/27_DATA_AUTHORING.md`
 - `docs/28_LOCALIZATION.md`
 - `docs/30_CI_WORKFLOW.md`
+- `docs/31_AI_DEVELOPMENT_WORKFLOW.md`
+- `docs/32_PLAYTEST_PROTOCOL.md`
 
 Production:
 - `docs/23_VERTICAL_SLICE.md`
