@@ -8,7 +8,7 @@ A later phase begins when the preceding risk is proven sufficiently, not simply 
 
 ## Phase 0 — Design Foundation
 
-Status: **IN PROGRESS / NEAR COMPLETE**
+Status: **COMPLETE — DESIGN BASELINE V1**
 
 Goals:
 - vision,
