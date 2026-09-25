@@ -1,7 +1,10 @@
 {
   "name": "UNDO — Godot 4.7.2 .NET",
-  "image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
   "features": {
+    "ghcr.io/devcontainers/features/dotnet:2": {
+      "version": "8.0"
+    },
     "ghcr.io/devcontainers/features/desktop-lite:1": {
       "password": "noPassword",
       "webPort": "6080",
