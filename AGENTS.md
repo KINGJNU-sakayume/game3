@@ -30,7 +30,9 @@ Before planning or implementing gameplay work, read at minimum:
 20. `docs/28_LOCALIZATION.md`
 21. `docs/29_PROJECT_BOOTSTRAP.md`
 22. `docs/30_CI_WORKFLOW.md`
-23. `docs/20_CURRENT_STATE.md`
+23. `docs/31_AI_DEVELOPMENT_WORKFLOW.md`
+24. `docs/32_PLAYTEST_PROTOCOL.md`
+25. `docs/20_CURRENT_STATE.md`
 
 For narrative, level, or presentation work also read:
 - `docs/06_PROGRESSION.md`
