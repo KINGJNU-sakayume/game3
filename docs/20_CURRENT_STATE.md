@@ -39,6 +39,10 @@ The following areas have a stable design direction:
 - layered testing strategy and xUnit domain-test decision,
 - C# coding/architecture standards,
 - Prototype A/B/C functional and UX acceptance specifications,
+- 25–35 minute vertical-slice scope and greenlight criteria,
+- campaign/narrative content registry,
+- reusable asset-kit budget and acquisition rules,
+- gate-based production roadmap,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
@@ -57,10 +61,9 @@ The following areas have a stable design direction:
 
 Before production coding, complete:
 
-1. content registry,
-2. asset registry,
-3. vertical-slice specification,
-4. production roadmap.
+1. localization/content-data format details,
+2. exact project bootstrap commands and CI workflow,
+3. final prototype playtest checklist refinements.
 
 ## Prototype gates
 
