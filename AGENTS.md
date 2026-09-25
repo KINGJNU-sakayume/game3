@@ -26,7 +26,11 @@ Before planning or implementing gameplay work, read at minimum:
 16. `docs/24_CONTENT_REGISTRY.md`
 17. `docs/25_ASSET_REGISTRY.md`
 18. `docs/26_PRODUCTION_ROADMAP.md`
-19. `docs/20_CURRENT_STATE.md`
+19. `docs/27_DATA_AUTHORING.md`
+20. `docs/28_LOCALIZATION.md`
+21. `docs/29_PROJECT_BOOTSTRAP.md`
+22. `docs/30_CI_WORKFLOW.md`
+23. `docs/20_CURRENT_STATE.md`
 
 For narrative, level, or presentation work also read:
 - `docs/06_PROGRESSION.md`
@@ -39,9 +43,9 @@ For narrative, level, or presentation work also read:
 
 ## Current instruction
 
-**The project is still in pre-production. Do not assume permission to implement the full game.**
+**The design baseline is implementation-ready for bootstrap/prototypes, but do not assume permission to implement the full game.**
 
-Technical architecture and Prototype A/B/C specifications are locked. Implementation may proceed only when explicitly requested, and should advance through Prototype A → B → C before vertical-slice/full-production work. Do not skip Prototype B's readability/interest gate.
+Technical architecture, data authoring, bootstrap, CI, and Prototype A/B/C specifications are locked. Implementation may proceed only when explicitly requested. Start with `docs/29_PROJECT_BOOTSTRAP.md`, then advance through Prototype A → B → C before vertical-slice/full-production work. Do not skip Prototype B's readability/interest gate.
 
 ## Conflict rule
 
