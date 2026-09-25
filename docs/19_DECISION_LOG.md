@@ -85,3 +85,34 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-028 — Production order
 **Locked.** Design → technical design → prototypes → vertical slice → full content. Full production does not begin merely because the story bible exists.
+
+
+## D-029 — Engine
+**Locked.** Godot 4.7.2 stable .NET build with C# is the initial production engine/language stack. Prototype/vertical-slice work stays on this stable line unless a critical maintenance upgrade is explicitly approved.
+
+## D-030 — Domain separation
+**Locked.** Gameplay causal truth lives in a Godot-independent C# domain layer (`Undo.Core`) where practical. Godot scenes present/apply semantic state; they are not the authoritative causal model.
+
+## D-031 — Semantic state
+**Locked.** Puzzle state uses stable EntityIds, StateChannels, and semantic values/locations rather than raw scene paths, runtime instance IDs, or unconstrained physics transforms.
+
+## D-032 — Event immutability
+**Locked.** Recorded events are immutable historical records. Correction stores suppression separately and re-resolves effective state.
+
+## D-033 — Event sequence
+**Locked.** Strict monotonic event sequence is authoritative for state ordering. Timestamps are presentation/narrative metadata.
+
+## D-034 — NPC behavior
+**Locked.** NPC decision-making is RoutinePlan + current semantic world state + minimal ActorMemory + prioritized deterministic ReactionRules. Navigation executes a chosen goal and does not choose gameplay intent.
+
+## D-035 — NPC evaluation
+**Locked.** Reactions are re-evaluated at meaningful boundaries/state changes, not through unrestricted every-frame replanning. Random puzzle branching is prohibited.
+
+## D-036 — Save model
+**Locked.** Save/restore serializes semantic gameplay data and stable checkpoint snapshots, not the live Godot scene tree.
+
+## D-037 — Initial save policy
+**Locked for prototype/vertical slice.** One primary campaign record with autosave at stable checkpoints. Multiple manual slots are deferred until release usability/platform requirements justify them.
+
+## D-038 — Debug tooling
+**Locked.** Causal-state/event/NPC inspection tools are first-class development requirements and are exempt from player-facing visual style restrictions.
