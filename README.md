@@ -4,9 +4,9 @@ A first-person causal puzzle game about undoing recorded actions without rewindi
 
 ## Project status
 
-**Phase:** Pre-production / design lock  
+**Phase:** Design baseline v1 complete; ready for repository/bootstrap implementation  
 **Implementation:** Not started  
-**Current objective:** Complete the game design, narrative, UX/art, audio, technical architecture, production plan, and acceptance criteria before feature implementation begins.
+**Current objective:** Bootstrap Godot/.NET architecture, then validate Prototype A → B → C before any campaign production.
 
 ## Core premise
 
@@ -35,4 +35,39 @@ When implementation begins, `AGENTS.md` will define how coding agents must read 
 
 ## Documentation
 
-See `docs/20_CURRENT_STATE.md` for the current design status and `docs/19_DECISION_LOG.md` for locked decisions.
+Start here:
+
+1. `AGENTS.md` — mandatory rules for ChatGPT/Codex/implementation agents
+2. `docs/20_CURRENT_STATE.md` — current project phase and next action
+3. `docs/19_DECISION_LOG.md` — locked canonical decisions
+4. `docs/29_PROJECT_BOOTSTRAP.md` — first implementation task
+5. `docs/22_PROTOTYPE_SPEC.md` — Prototype A/B/C gates
+
+Core design:
+- `docs/00_GAME_VISION.md`
+- `docs/01_DESIGN_PILLARS.md`
+- `docs/02_CORE_MECHANIC.md`
+- `docs/03_CAUSAL_SYSTEM.md`
+- `docs/05_PUZZLE_GRAMMAR.md`
+- `docs/06_PROGRESSION.md`
+- `docs/09_NARRATIVE.md`
+- `docs/11_UI_UX.md`
+- `docs/12_ART_DIRECTION.md`
+- `docs/13_AUDIO_DIRECTION.md`
+
+Engineering:
+- `docs/14_TECHNICAL_ARCHITECTURE.md`
+- `docs/15_EVENT_SYSTEM.md`
+- `docs/16_NPC_BEHAVIOR.md`
+- `docs/17_SAVE_SYSTEM.md`
+- `docs/18_TESTING_STRATEGY.md`
+- `docs/21_CODING_STANDARDS.md`
+- `docs/27_DATA_AUTHORING.md`
+- `docs/28_LOCALIZATION.md`
+- `docs/30_CI_WORKFLOW.md`
+
+Production:
+- `docs/23_VERTICAL_SLICE.md`
+- `docs/24_CONTENT_REGISTRY.md`
+- `docs/25_ASSET_REGISTRY.md`
+- `docs/26_PRODUCTION_ROADMAP.md`
