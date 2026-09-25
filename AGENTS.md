@@ -19,7 +19,10 @@ Before planning or implementing gameplay work, read at minimum:
 9. `docs/15_EVENT_SYSTEM.md`
 10. `docs/16_NPC_BEHAVIOR.md`
 11. `docs/17_SAVE_SYSTEM.md`
-12. `docs/20_CURRENT_STATE.md`
+12. `docs/18_TESTING_STRATEGY.md`
+13. `docs/21_CODING_STANDARDS.md`
+14. `docs/22_PROTOTYPE_SPEC.md`
+15. `docs/20_CURRENT_STATE.md`
 
 For narrative, level, or presentation work also read:
 - `docs/06_PROGRESSION.md`
@@ -34,7 +37,7 @@ For narrative, level, or presentation work also read:
 
 **The project is still in pre-production. Do not assume permission to implement the full game.**
 
-Technical architecture is now locked, but prototype specifications are not yet complete. Implementation tasks should remain limited to explicitly requested repository/tooling setup until the prototype acceptance/specification documents are added; then implementation may proceed only through those prototype gates.
+Technical architecture and Prototype A/B/C specifications are locked. Implementation may proceed only when explicitly requested, and should advance through Prototype A → B → C before vertical-slice/full-production work. Do not skip Prototype B's readability/interest gate.
 
 ## Conflict rule
 
