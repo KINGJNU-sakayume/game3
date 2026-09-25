@@ -168,3 +168,13 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-054 — Prototype playtesting
 **Locked.** Prototype greenlight requires human comprehension and prediction evidence in addition to technical correctness. Prototype B must demonstrate generalizable understanding of Consequence Persistence before full production.
+
+
+## D-055 — Player locomotion scope
+**Locked.** Core locomotion is move + look only. No jump/crouch/mantle/sprint/stamina system during early production. Movement should be comfortable and non-athletic.
+
+## D-056 — Input architecture
+**Locked.** Gameplay uses named rebindable actions. Review is a distinct mode; Commit/Release are explicit causal verbs and ordinary Inspect remains non-causal.
+
+## D-057 — Puzzle authoring standard
+**Locked.** Every major puzzle must be specified through the causal authoring template before graybox/art production, including normal routine, recorded events, intended insight, observation plan, reaction boundaries, reset, tests, and playtest questions.
