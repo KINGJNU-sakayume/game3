@@ -142,3 +142,22 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-046 — Roadmap
 **Locked.** Production advances through design → engine bootstrap → Prototype A → Prototype B greenlight → Prototype C → vertical-slice graybox → polished vertical slice → act production → alpha/beta/RC. Prototype B remains the principal continuation gate.
+
+
+## D-047 — Causal content format
+**Locked.** Engine-neutral causal/puzzle content is authored as UTF-8 JSON under `game/content/`. Universal rules remain C#. Godot `.tscn/.tres` own placement/presentation rather than causal truth.
+
+## D-048 — Content scripting boundary
+**Locked.** Routine/reaction/completion data uses a small validated structured vocabulary. Arbitrary code/expression strings inside JSON are prohibited.
+
+## D-049 — Localization format
+**Locked.** Player-facing prose is referenced by stable localization keys. Development locales are Korean and English, with UTF-8 CSV translation sources split by UI/subtitles/documents/signage/system.
+
+## D-050 — .NET baseline
+**Locked.** Initial bootstrap uses .NET 8 and C# 12 with Godot 4.7.2 .NET.
+
+## D-051 — Bootstrap structure
+**Locked.** The solution separates `Undo.Core`, `Undo.Game`, `Undo.Core.Tests`, and `Undo.ContentValidator`. Bootstrap and Prototype A are separate reviewable implementation stages by default.
+
+## D-052 — CI baseline
+**Locked.** Pull-request validation targets .NET restore/build/test, causal content validation, and Godot headless smoke/integration checks with pinned toolchain versions.
