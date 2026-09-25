@@ -29,4 +29,6 @@ public sealed class EventLedger
         recordedEvent = _events.FirstOrDefault(existing => existing.Id == id);
         return recordedEvent is not null;
     }
+
+    internal void Clear() => _events.Clear();
 }

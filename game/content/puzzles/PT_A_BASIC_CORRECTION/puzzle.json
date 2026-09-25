@@ -2,9 +2,11 @@
   "schemaVersion": 1,
   "puzzleId": "PT_A_BASIC_CORRECTION",
   "displayNameKey": "PUZZLE.PT_A_BASIC_CORRECTION.NAME",
+  "scenePath": "res://scenes/levels/PT_A_BASIC_CORRECTION.tscn",
   "correctionCapacity": 1,
   "locations": [
     "LOC_PT_A_PLAYER_START",
+    "LOC_PT_A_OBSERVATION",
     "LOC_PT_A_WORKER_START",
     "LOC_PT_A_DOOR_INSIDE",
     "LOC_PT_A_DOOR_OUTSIDE",
@@ -21,10 +23,36 @@
       "actorId": "NPC_WORKER_01",
       "initialLocation": "LOC_PT_A_WORKER_START",
       "initialMemory": {},
-      "routine": []
+      "routine": [
+        {
+          "type": "MOVE_TO",
+          "location": "LOC_PT_A_DOOR_INSIDE"
+        },
+        {
+          "type": "MOVE_TO",
+          "location": "LOC_PT_A_DOOR_OUTSIDE"
+        },
+        {
+          "type": "INTENT",
+          "verb": "CLOSE",
+          "target": "DOOR_A",
+          "reversible": true,
+          "source": "ACCESS_CONTROL"
+        },
+        {
+          "type": "MOVE_TO",
+          "location": "LOC_PT_A_EXIT"
+        }
+      ]
     }
   ],
   "completion": {
-    "all": []
+    "all": [
+      {
+        "playerAtLocation": {
+          "location": "LOC_PT_A_EXIT"
+        }
+      }
+    ]
   }
 }
