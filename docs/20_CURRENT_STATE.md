@@ -31,6 +31,11 @@ The following areas have a stable design direction:
 - institutional art direction,
 - audio direction and sound-as-gameplay-information rules,
 - environmental information/readability rules for level design,
+- Godot 4.7.2 .NET + C# engine/stack decision,
+- Godot-independent causal domain architecture,
+- formal event/state resolution specification,
+- deterministic NPC routine/reaction architecture,
+- semantic save/snapshot/restore architecture,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
@@ -49,17 +54,13 @@ The following areas have a stable design direction:
 
 Before production coding, complete:
 
-1. technical architecture,
-2. formal event/state data specification,
-3. NPC behavior architecture,
-4. save/restore architecture,
-5. content registry,
-6. asset registry,
-7. testing strategy,
-8. coding standards,
-9. prototype acceptance criteria,
-10. vertical-slice specification,
-11. production roadmap.
+1. content registry,
+2. asset registry,
+3. testing strategy,
+4. coding standards,
+5. prototype acceptance criteria,
+6. vertical-slice specification,
+7. production roadmap.
 
 ## Prototype gates
 
@@ -86,7 +87,6 @@ Do not start building all 16 levels before the three mechanic prototypes and ver
 ## Open decisions
 
 Not yet locked:
-- engine and exact technical stack,
 - exact input bindings,
 - exact correction color values,
 - exact font family/licensing,
