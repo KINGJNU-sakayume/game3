@@ -204,3 +204,16 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-065 — Vertical slice spoiler boundary
 **Locked.** The slice may establish migration/closure and institutional inconsistency but does not reveal Record 0, the 39-second gap, or Seojin accident details.
+
+
+## D-066 — Content lifecycle
+**Locked.** Every major puzzle advances through CONCEPT → AUTHORED → VALIDATED → GRAYBOX → PLAYTESTED → ART_READY → INTEGRATED → CONTENT_LOCK → POLISH. Art cannot substitute for a failed causal graybox.
+
+## D-067 — Production status semantics
+**Locked.** Content registry status reflects passed evidence/gates rather than visual completion or optimism.
+
+## D-068 — Presentation authority
+**Locked.** Art/audio/animation present semantic state but never become the authority for causal state. Puzzle-critical animations require explicit semantic commit synchronization.
+
+## D-069 — Puzzle-critical physical objects
+**Locked.** Critical portable objects use semantic anchors/possession rather than uncontrolled physics. Production presentation must not make causal state depend on simulation drift.
