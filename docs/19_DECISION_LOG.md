@@ -217,3 +217,16 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-069 — Puzzle-critical physical objects
 **Locked.** Critical portable objects use semantic anchors/possession rather than uncontrolled physics. Production presentation must not make causal state depend on simulation drift.
+
+
+## D-070 — Essential narrative spine
+**Locked.** UNDO uses fourteen essential narrative artifacts (N01–N14) as the maximum target for required plot delivery. Essential facts remain on the critical path; optional material deepens context only.
+
+## D-071 — Narrative media balance
+**Locked.** Required story evidence is distributed across notices, work traces, rosters, logs, audit records, voice communication, reconstruction, and current system state rather than concentrated into long collectible documents.
+
+## D-072 — 39-second reveal delivery
+**Locked.** N12 is an environmental/system composite integrated with L15 mechanics. The critical interval is revealed through surrounding recorded events and the genuine absence of a correctable event, not a prose explanation.
+
+## D-073 — Investigation ambiguity
+**Locked.** N13 establishes multi-factor technical/procedural causes, notes response delay, and preserves uncertainty about whether earlier intervention would certainly have changed the outcome.
