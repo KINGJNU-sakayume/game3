@@ -161,3 +161,10 @@ This file records design decisions considered canonical unless explicitly revise
 
 ## D-052 — CI baseline
 **Locked.** Pull-request validation targets .NET restore/build/test, causal content validation, and Godot headless smoke/integration checks with pinned toolchain versions.
+
+
+## D-053 — AI development workflow
+**Locked.** ChatGPT handles design/specification/review, GitHub is durable project memory, and Codex handles scoped implementation against repository canon. Chat history is never the source of truth.
+
+## D-054 — Prototype playtesting
+**Locked.** Prototype greenlight requires human comprehension and prediction evidence in addition to technical correctness. Prototype B must demonstrate generalizable understanding of Consequence Persistence before full production.
