@@ -36,6 +36,9 @@ The following areas have a stable design direction:
 - formal event/state resolution specification,
 - deterministic NPC routine/reaction architecture,
 - semantic save/snapshot/restore architecture,
+- layered testing strategy and xUnit domain-test decision,
+- C# coding/architecture standards,
+- Prototype A/B/C functional and UX acceptance specifications,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
@@ -56,11 +59,8 @@ Before production coding, complete:
 
 1. content registry,
 2. asset registry,
-3. testing strategy,
-4. coding standards,
-5. prototype acceptance criteria,
-6. vertical-slice specification,
-7. production roadmap.
+3. vertical-slice specification,
+4. production roadmap.
 
 ## Prototype gates
 
