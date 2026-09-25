@@ -49,6 +49,8 @@ The following areas have a stable design direction:
 - CI and repository quality workflow,
 - ChatGPT/GitHub/Codex handoff workflow,
 - prototype and puzzle playtest protocol,
+- first-person movement/camera/input experience rules,
+- standardized puzzle authoring/graybox gate template,
 - prohibition of generic AI/SaaS/neon UI language.
 
 ## Current high-level game
